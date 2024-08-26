@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using PainelDeChamado.Models;
+using TicketsPanel.Models;
 using TicketsPanel.Data;
 using TicketsPanel.Services;
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-
-namespace PainelDeChamado.Models
+﻿namespace TicketsPanel.Models
 {
     public class Ticket
     {
@@ -15,7 +13,7 @@ namespace PainelDeChamado.Models
         public string Situation { get; set; } = "No defined attendant";
         public bool ReceiveResponse { get; set; } = true;
         public bool SendReply { get; set; } = true;
-        public DateTimeOffset OpenTime { get; set; } = DateTime.UtcNow;
+        public DateTime OpenTime { get; set; } = DateTime.UtcNow;
         public DateTime? CloseTime { get; set; } = null;
         public DateTime Sla { get; set; }
 

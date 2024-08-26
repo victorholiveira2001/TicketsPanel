@@ -1,4 +1,4 @@
-namespace PainelDeChamado.Models{
+namespace TicketsPanel.Models{
     public class Message{
         public int MessageId { get; set; }
         public string Body { get; set; }

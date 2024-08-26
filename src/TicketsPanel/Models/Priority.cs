@@ -1,4 +1,4 @@
-namespace PainelDeChamado.Models
+namespace TicketsPanel.Models
 {
     public class Priority
     {

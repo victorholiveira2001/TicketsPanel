@@ -1,5 +1,5 @@
 using Isopoh.Cryptography.Argon2;
-using PainelDeChamado.Models;
+using TicketsPanel.Models;
 
 namespace TicketsPanel.Services{
     public class PasswordHasher{
