@@ -1,4 +1,7 @@
+using Microsoft.Build.Execution;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.ComponentModel.DataAnnotations.Schema;
 using TicketsPanel.Models;
 
 namespace TicketsPanel.Data
@@ -24,6 +27,7 @@ namespace TicketsPanel.Data
         {
             base.OnModelCreating(builder);
 
+           
             #region Ticket | Definitions and Relationship
 
             builder.Entity<Ticket>().HasKey(c => c.TicketId);
@@ -73,17 +77,35 @@ namespace TicketsPanel.Data
 
             #endregion
 
+            #region Organization | Definitions and Relationship
+
+            builder.Entity<Organization>().HasKey(o => o.OrganizationId);
+            builder.Entity<Organization>()
+                .Property(o => o.OrganizationId)
+                .ValueGeneratedOnAdd()
+                .UseIdentityColumn();
+
+            builder.Entity<Organization>(o => o
+                .HasMany(d => d.Departments)
+                .WithOne(o => o.Organization)
+                .HasForeignKey(d => d.OrganizationId)
+                .OnDelete(DeleteBehavior.NoAction)
+                );
+
+            #endregion
+
             #region Department | Definitions and Relationship
 
             // One to Many
             builder.Entity<Department>().HasMany(d => d.Categories).WithOne(c => c.Department).HasForeignKey(c => c.DepartmentId).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Department>().HasMany(d => d.Users).WithOne(u => u.Department).HasForeignKey(u => u.DepartmentId).OnDelete(DeleteBehavior.NoAction);
-            
-            // Many to One
-            builder.Entity<Department>().HasOne(d => d.Organization).WithMany(o => o.Departments).HasForeignKey(d => d.OrganizationId).OnDelete(DeleteBehavior.NoAction);
-            
+          
             // One to One
-            builder.Entity<Department>().HasOne(d => d.Manager).WithOne().HasForeignKey<Department>(d => d.ManagerId).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Department>()
+                .HasOne(d => d.Manager)
+                .WithOne()
+                .HasForeignKey<Department>(d => d.ManagerId)
+                .OnDelete(DeleteBehavior.NoAction);
             #endregion
         }
     }
