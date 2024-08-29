@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketsPanel.Data;
 
@@ -11,9 +12,11 @@ using TicketsPanel.Data;
 namespace TicketsPanel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240827193440_Adding User inactivation")]
+    partial class AddingUserinactivation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,9 +47,6 @@ namespace TicketsPanel.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
 
                     b.Property<int>("DepartmentId")
                         .HasColumnType("int");
@@ -150,6 +150,23 @@ namespace TicketsPanel.Migrations
                     b.ToTable("Organizations");
                 });
 
+            modelBuilder.Entity("TicketsPanel.Models.Priority", b =>
+                {
+                    b.Property<int>("PriorityId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PriorityId"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PriorityId");
+
+                    b.ToTable("Priorities");
+                });
+
             modelBuilder.Entity("TicketsPanel.Models.Role", b =>
                 {
                     b.Property<int>("RoleId")
@@ -200,12 +217,9 @@ namespace TicketsPanel.Migrations
                     b.Property<DateTime>("OpenTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 8, 29, 14, 36, 7, 143, DateTimeKind.Utc).AddTicks(6484));
+                        .HasDefaultValue(new DateTime(2024, 8, 27, 19, 34, 36, 652, DateTimeKind.Utc).AddTicks(6312));
 
                     b.Property<int?>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Priority")
                         .HasColumnType("int");
 
                     b.Property<int>("PriotiryId")
@@ -242,6 +256,8 @@ namespace TicketsPanel.Migrations
 
                     b.HasIndex("OrganizationId");
 
+                    b.HasIndex("PriotiryId");
+
                     b.ToTable("Tickets");
                 });
 
@@ -271,6 +287,7 @@ namespace TicketsPanel.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
@@ -395,11 +412,19 @@ namespace TicketsPanel.Migrations
                         .WithMany("Tickets")
                         .HasForeignKey("OrganizationId");
 
+                    b.HasOne("TicketsPanel.Models.Priority", "Priority")
+                        .WithMany("Tickets")
+                        .HasForeignKey("PriotiryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
                     b.Navigation("Attendant");
 
                     b.Navigation("Category");
 
                     b.Navigation("Department");
+
+                    b.Navigation("Priority");
                 });
 
             modelBuilder.Entity("TicketsPanel.Models.User", b =>
@@ -446,6 +471,11 @@ namespace TicketsPanel.Migrations
                 {
                     b.Navigation("Departments");
 
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("TicketsPanel.Models.Priority", b =>
+                {
                     b.Navigation("Tickets");
                 });
 

@@ -1,4 +1,6 @@
-﻿namespace TicketsPanel.Models
+﻿using TicketsPanel.Enums;
+
+namespace TicketsPanel.Models
 {
     public class Ticket
     {
