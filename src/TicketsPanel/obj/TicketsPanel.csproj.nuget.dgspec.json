@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projetos\\C#\\new\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj": {}
+    "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj": {}
   },
   "projects": {
-    "D:\\Projetos\\C#\\new\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj": {
+    "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projetos\\C#\\new\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj",
+        "projectUniqueName": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj",
         "projectName": "TicketsPanel",
-        "projectPath": "D:\\Projetos\\C#\\new\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj",
+        "projectPath": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\TicketsPanel.csproj",
         "packagesPath": "C:\\Users\\Victor\\.nuget\\packages\\",
-        "outputPath": "D:\\Projetos\\C#\\new\\TicketsPanel\\src\\TicketsPanel\\obj\\",
+        "outputPath": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Victor\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -54,6 +54,10 @@
               "target": "Package",
               "version": "[2.0.0, )"
             },
+            "Microsoft.AspNet.Identity.Core": {
+              "target": "Package",
+              "version": "[2.2.4, )"
+            },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.8, )"
@@ -92,7 +96,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[8.0.4, )"
+              "version": "[8.0.5, )"
             }
           },
           "imports": [

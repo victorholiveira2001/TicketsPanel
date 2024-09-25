@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TicketsPanel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+143ccf983320647b1805a9c11337592db0eb6ec6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f169bdd91ff4a82564cb876db35c44d0dfadb307")]
 [assembly: System.Reflection.AssemblyProductAttribute("TicketsPanel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TicketsPanel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

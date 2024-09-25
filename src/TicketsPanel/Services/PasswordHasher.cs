@@ -9,10 +9,10 @@ namespace TicketsPanel.Services{
         }
         public bool VerifyPassword(string password)
         {
-            var user = new User();
+            var user = new ApplicationUser();
 
 
-            return Argon2.Verify(password, user.Password);
+            return Argon2.Verify(password, user.PasswordHash);
         }
     }
 }

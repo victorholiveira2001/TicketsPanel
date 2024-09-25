@@ -22,10 +22,10 @@ namespace TicketsPanel.Models
         public Department Department { get; set; }
         public Category Category { get; set; }
         public Priority Priority { get; set; }
-        public User Attendant { get; set; } = null; 
+        public ApplicationUser Attendant { get; set; } = null; 
 
         public ICollection<Message> Messages { get; set; }
-        public ICollection<User> Clients { get; set; }
+        public ICollection<ApplicationUser> Clients { get; set; }
 
 
 

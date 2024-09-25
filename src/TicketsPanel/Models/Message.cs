@@ -6,7 +6,7 @@ namespace TicketsPanel.Models{
         public int SenderId { get; set; }
         public int TicketId { get; set; }
         
-        public User Sender { get; set; }
+        public ApplicationUser Sender { get; set; }
         public Ticket Ticket { get; set; }
     }
 }

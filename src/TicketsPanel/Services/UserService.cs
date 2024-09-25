@@ -12,7 +12,7 @@ namespace TicketsPanel.Services
             _context = context;
         }
 
-        public async Task UpdateManagerId(int departmentId, User user)
+        public async Task UpdateManagerId(int departmentId, ApplicationUser user)
         {
             user.DepartmentId = departmentId;
             _context.Update(user);
