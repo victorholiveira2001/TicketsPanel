@@ -39,7 +39,7 @@ namespace TicketsPanel.Controllers
                 await _context.SaveChangesAsync();
 
                 ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "Name", category.DepartmentId);
-                return View();
+                return RedirectToAction("Create");
             }
             return View(category);
         }

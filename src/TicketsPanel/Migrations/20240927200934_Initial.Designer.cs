@@ -12,8 +12,8 @@ using TicketsPanel.Data;
 namespace TicketsPanel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240927024256_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240927200934_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -401,19 +401,18 @@ namespace TicketsPanel.Migrations
                     b.Property<string>("Emails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("OpenTime")
+                    b.Property<string>("OpenTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 27, 2, 42, 55, 550, DateTimeKind.Utc).AddTicks(702));
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("27/09/2024 17:09:33");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PriotiryId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<bool>("ReceiveResponse")
                         .ValueGeneratedOnAdd()
@@ -425,8 +424,10 @@ namespace TicketsPanel.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("Situation")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Situation")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime>("Sla")
                         .HasColumnType("datetime2");

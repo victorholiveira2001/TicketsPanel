@@ -8,14 +8,13 @@ namespace TicketsPanel.Models
         public string Title { get; set; }
         public int DepartmentId { get; set; }
         public int CategoryId { get; set; }
-        public int PriotiryId { get; set; }
-        public ICollection<string>? Emails { get; set; }
-        public ICollection<string>? Attachment { get; set; }
+        public List<string>? Emails { get; set; }
+        public List<string>? Attachment { get; set; }
         public int? AttendantId { get; set; }
-        public string Situation { get; set; } = "No defined attendant";
+        public Situation Situation { get; set; }
         public bool ReceiveResponse { get; set; } = true;
         public bool SendReply { get; set; } = true;
-        public DateTime OpenTime { get; set; } = DateTime.UtcNow;
+        public string OpenTime { get; set; }
         public DateTime? CloseTime { get; set; } = null;
         public DateTime Sla { get; set; }
 

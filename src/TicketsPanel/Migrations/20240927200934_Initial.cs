@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TicketsPanel.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -235,17 +235,16 @@ namespace TicketsPanel.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DepartmentId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
-                    PriotiryId = table.Column<int>(type: "int", nullable: false),
                     Emails = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Attachment = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AttendantId = table.Column<int>(type: "int", nullable: true),
-                    Situation = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Situation = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ReceiveResponse = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     SendReply = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    OpenTime = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 9, 27, 2, 42, 55, 550, DateTimeKind.Utc).AddTicks(702)),
+                    OpenTime = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "27/09/2024 17:09:33"),
                     CloseTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Sla = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Priority = table.Column<int>(type: "int", nullable: false),
+                    Sla = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Priority = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     OrganizationId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

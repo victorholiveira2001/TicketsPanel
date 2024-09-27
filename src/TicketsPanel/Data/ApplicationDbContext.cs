@@ -33,7 +33,9 @@ namespace TicketsPanel.Data
 
             builder.Entity<Ticket>().HasKey(c => c.TicketId);
             builder.Entity<Ticket>().Property(c => c.AttendantId).HasDefaultValue(null);
-            builder.Entity<Ticket>().Property(c => c.OpenTime).HasDefaultValue(DateTime.UtcNow);
+            builder.Entity<Ticket>().Property(c => c.OpenTime).HasDefaultValue(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
+            builder.Entity<Ticket>().Property(c => c.Situation).HasDefaultValue(Situation.NotDefinedAttendent);
+            builder.Entity<Ticket>().Property(c => c.Priority).HasDefaultValue(Priority.Normal);    
             builder.Entity<Ticket>().Property(c => c.CloseTime).HasDefaultValue(null);
             builder.Entity<Ticket>().Property(c => c.Sla).HasDefaultValue(null);
             builder.Entity<Ticket>().Property(c => c.ReceiveResponse).HasDefaultValue(true);

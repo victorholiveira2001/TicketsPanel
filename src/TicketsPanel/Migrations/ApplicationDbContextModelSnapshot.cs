@@ -301,9 +301,6 @@ namespace TicketsPanel.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("DepartmentId"));
 
-                    b.Property<int>("ManagerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -315,9 +312,6 @@ namespace TicketsPanel.Migrations
                         .HasColumnType("nvarchar(1)");
 
                     b.HasKey("DepartmentId");
-
-                    b.HasIndex("ManagerId")
-                        .IsUnique();
 
                     b.HasIndex("OrganizationId");
 
@@ -404,19 +398,18 @@ namespace TicketsPanel.Migrations
                     b.Property<string>("Emails")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("OpenTime")
+                    b.Property<string>("OpenTime")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 9, 25, 23, 11, 20, 455, DateTimeKind.Utc).AddTicks(8525));
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("27/09/2024 17:09:33");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
                     b.Property<int>("Priority")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PriotiryId")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(1);
 
                     b.Property<bool>("ReceiveResponse")
                         .ValueGeneratedOnAdd()
@@ -428,8 +421,10 @@ namespace TicketsPanel.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<string>("Situation")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Situation")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime>("Sla")
                         .HasColumnType("datetime2");
@@ -540,19 +535,11 @@ namespace TicketsPanel.Migrations
 
             modelBuilder.Entity("TicketsPanel.Models.Department", b =>
                 {
-                    b.HasOne("TicketsPanel.Models.ApplicationUser", "Manager")
-                        .WithOne()
-                        .HasForeignKey("TicketsPanel.Models.Department", "ManagerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("TicketsPanel.Models.Organization", "Organization")
                         .WithMany("Departments")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Manager");
 
                     b.Navigation("Organization");
                 });
