@@ -1,0 +1,250 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projetos\\C#\\TicketsPanel\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\controllers\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\controllers\\departmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\departments\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\departments\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\services\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\services\\passwordhasher.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\tickets\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\tickets\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\tickets\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\tickets\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\tickets\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\tickets\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\departments\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\departments\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\departments\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\departments\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\models\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\models\\department.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\views\\departments\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\views\\departments\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|d:\\projetos\\c#\\ticketspanel\\src\\ticketspanel\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}|src\\TicketsPanel\\TicketsPanel.csproj|solutionrelative:src\\ticketspanel\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Department.cs",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Models\\Department.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Models\\Department.cs",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Models\\Department.cs",
+              "RelativeToolTip": "src\\TicketsPanel\\Models\\Department.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T20:31:59.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "src\\TicketsPanel\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAGIAAAAAAAAAAAAmwHQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T20:06:11.457Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Program.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Program.cs",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Program.cs",
+              "RelativeToolTip": "src\\TicketsPanel\\Program.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T20:03:53.187Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DepartmentsController.cs",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Controllers\\DepartmentsController.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Controllers\\DepartmentsController.cs",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Controllers\\DepartmentsController.cs*",
+              "RelativeToolTip": "src\\TicketsPanel\\Controllers\\DepartmentsController.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T20:33:08.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Create.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Departments\\Create.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Create.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Departments\\Create.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAA8AAABEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:32:14.064Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Delete.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Departments\\Delete.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Delete.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Departments\\Delete.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:34:01.325Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Details.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Departments\\Details.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Details.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Departments\\Details.cshtml",
+              "ViewState": "AgIAABAAAAAAAAAAAAAkwBsAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:34:15.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Delete.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Tickets\\Delete.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Tickets\\Delete.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Tickets\\Delete.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Tickets\\Delete.cshtml",
+              "ViewState": "AgIAAFQAAAAAAAAAAAAkwF8AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:34:23.286Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Tickets\\Details.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Tickets\\Details.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Tickets\\Details.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Tickets\\Details.cshtml",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAkwF4AAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:34:30.256Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Models\\ApplicationUser.cs",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "src\\TicketsPanel\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAswBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T19:30:02.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Tickets\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Tickets\\Index.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Tickets\\Index.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Tickets\\Index.cshtml",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAkwGYAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:34:35.372Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PasswordHasher.cs",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Services\\PasswordHasher.cs",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Services\\PasswordHasher.cs",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Services\\PasswordHasher.cs",
+              "RelativeToolTip": "src\\TicketsPanel\\Services\\PasswordHasher.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T20:34:42.569Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Index.cshtml",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\Views\\Departments\\Index.cshtml",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\Views\\Departments\\Index.cshtml",
+              "RelativeToolTip": "src\\TicketsPanel\\Views\\Departments\\Index.cshtml",
+              "ViewState": "AgIAABwAAAAAAAAAAAAkwCcAAAA/AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-09-25T20:35:12.712Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\appsettings.json",
+              "RelativeDocumentMoniker": "src\\TicketsPanel\\appsettings.json",
+              "ToolTip": "D:\\Projetos\\C#\\TicketsPanel\\src\\TicketsPanel\\appsettings.json",
+              "RelativeToolTip": "src\\TicketsPanel\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAABoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-09-25T20:03:53.762Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -74,7 +74,7 @@ namespace TicketsPanel.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Name", department.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "UserName", department.ManagerId);
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "OrganizationId", department.OrganizationId);
             return View(department);
         }
@@ -92,7 +92,7 @@ namespace TicketsPanel.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Name", department.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "UserName", department.ManagerId);
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "Name", department.OrganizationId);
             return View(department);
         }
@@ -131,7 +131,7 @@ namespace TicketsPanel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Name", department.ManagerId);
+            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "UserName", department.ManagerId);
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "OrganizationId", department.OrganizationId);
             return View(department);
         }

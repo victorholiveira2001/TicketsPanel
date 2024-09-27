@@ -1,27 +1,30 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31903.59
+VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A797E796-2800-4FC3-8849-BFB062CF56C7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1C2DA169-2CFE-4F98-AFE2-CEC1EF5D6E56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsPanel", "src\TicketsPanel\TicketsPanel.csproj", "{ECE3AE41-D85D-4BFA-8A6D-527BF45285DF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketsPanel", "src\TicketsPanel\TicketsPanel.csproj", "{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ECE3AE41-D85D-4BFA-8A6D-527BF45285DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ECE3AE41-D85D-4BFA-8A6D-527BF45285DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ECE3AE41-D85D-4BFA-8A6D-527BF45285DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ECE3AE41-D85D-4BFA-8A6D-527BF45285DF}.Release|Any CPU.Build.0 = Release|Any CPU
-	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{ECE3AE41-D85D-4BFA-8A6D-527BF45285DF} = {A797E796-2800-4FC3-8849-BFB062CF56C7}
+		{CFA826D8-2A25-496B-ACF2-0A2D176D0EA3} = {1C2DA169-2CFE-4F98-AFE2-CEC1EF5D6E56}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FCA5BA86-E562-41E0-B14C-D1AECC5136DF}
 	EndGlobalSection
 EndGlobal

@@ -2,8 +2,8 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TicketsPanel.Models;
 
-namespace TicketsPanel.Controllers;
-
+namespace TicketsPanel.Controllers
+{
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
@@ -28,4 +28,5 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+}
 }

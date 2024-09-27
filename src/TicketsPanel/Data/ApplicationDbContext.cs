@@ -1,21 +1,22 @@
-using Microsoft.Build.Execution;
+﻿using Microsoft.Build.Execution;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Threading.RateLimiting;
 using TicketsPanel.Enums;
 using TicketsPanel.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace TicketsPanel.Data
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, IdentityRole<int>, int>
     {
         public DbSet<Ticket> Tickets { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Organization> Organizations { get; set; }
-        public DbSet<Role> Roles { get; set; }
         public DbSet<Category> Categories { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -53,27 +54,28 @@ namespace TicketsPanel.Data
                 .WithMany(u => u.TicketsClient)
                 .UsingEntity<Dictionary<string, object>>(
                     "TicketClient",
-                    t => t.HasOne<User>().WithMany().HasForeignKey("ClientId"),
+                    t => t.HasOne<ApplicationUser>().WithMany().HasForeignKey("ClientId"),
                     c => c.HasOne<Ticket>().WithMany().HasForeignKey("TicketId"));
 
             #endregion
 
             #region User | Definitions and Relatioship
 
-            builder.Entity<User>().HasKey(u => u.UserId);
-            builder.Entity<User>().Property(u => u.Name).IsRequired();
+            builder.Entity<ApplicationUser>(entity =>
+                {
+                    entity.Property(e => e.Id).HasColumnOrder(1);
+                    entity.Property(e => e.UserName).HasColumnOrder(2);
+                    entity.Property(e => e.SSN).HasColumnOrder(3);
+                    entity.Property(e => e.Email).HasColumnOrder(4);
+                    entity.Property(e => e.PhoneNumber).HasColumnOrder(5);
+                    entity.Property(e => e.PasswordHash).HasColumnName("Password").HasColumnOrder(6);
+                    entity.Property(e => e.Position).HasColumnOrder(7);
 
-            // Many to Many
-            builder.Entity<User>()
-                .HasMany(u => u.Roles)
-                .WithMany(p => p.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "UserRole",
-                    r => r.HasOne<Role>().WithMany().HasForeignKey("RoleId"),
-                    u => u.HasOne<User>().WithMany().HasForeignKey("UserId"));
+
+                });
 
             // One to Many
-            builder.Entity<User>().HasMany(u => u.Messages).WithOne(m => m.Sender).HasForeignKey(u => u.SenderId).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<ApplicationUser>().HasMany(u => u.Messages).WithOne(m => m.Sender).HasForeignKey(u => u.SenderId).OnDelete(DeleteBehavior.NoAction);
 
             #endregion
 
@@ -102,13 +104,7 @@ namespace TicketsPanel.Data
             // One to Many
             builder.Entity<Department>().HasMany(d => d.Categories).WithOne(c => c.Department).HasForeignKey(c => c.DepartmentId).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Department>().HasMany(d => d.Users).WithOne(u => u.Department).HasForeignKey(u => u.DepartmentId).OnDelete(DeleteBehavior.NoAction);
-          
-            // One to One
-            builder.Entity<Department>()
-                .HasOne(d => d.Manager)
-                .WithOne()
-                .HasForeignKey<Department>(d => d.ManagerId)
-                .OnDelete(DeleteBehavior.NoAction);
+
             #endregion
         }
     }
