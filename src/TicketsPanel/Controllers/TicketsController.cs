@@ -20,6 +20,7 @@ namespace TicketsPanel.Controllers
         }
 
         // GET: Tickets
+        [Route("Chamado")]
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Tickets.Include(t => t.Attendant).Include(t => t.Category).Include(t => t.Department);
@@ -27,6 +28,7 @@ namespace TicketsPanel.Controllers
         }
 
         // GET: Tickets/Details/5
+        [Route("Chamado/Detalhes/{id}")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -48,6 +50,7 @@ namespace TicketsPanel.Controllers
         }
 
         // GET: Tickets/Create
+        [Route("Chamado/Criar")]
         public IActionResult Create()
         {
             ViewData["AttendantId"] = new SelectList(_context.Users, "UserId", "Name");
@@ -61,6 +64,7 @@ namespace TicketsPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Chamado/Criar")]
         public async Task<IActionResult> Create([Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
         {
             if (ModelState.IsValid)
@@ -76,6 +80,7 @@ namespace TicketsPanel.Controllers
         }
 
         // GET: Tickets/Edit/5
+        [Route("Chamado/Editar/{id}")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -99,6 +104,7 @@ namespace TicketsPanel.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Chamedo/Editar/{id}")]
         public async Task<IActionResult> Edit(int id, [Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
         {
             if (id != ticket.TicketId)
@@ -130,42 +136,6 @@ namespace TicketsPanel.Controllers
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", ticket.CategoryId);
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", ticket.DepartmentId);
             return View(ticket);
-        }
-
-        // GET: Tickets/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var ticket = await _context.Tickets
-                .Include(t => t.Attendant)
-                .Include(t => t.Category)
-                .Include(t => t.Department)
-                .FirstOrDefaultAsync(m => m.TicketId == id);
-            if (ticket == null)
-            {
-                return NotFound();
-            }
-
-            return View(ticket);
-        }
-
-        // POST: Tickets/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket != null)
-            {
-                _context.Tickets.Remove(ticket);
-            }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
 
         private bool TicketExists(int id)
