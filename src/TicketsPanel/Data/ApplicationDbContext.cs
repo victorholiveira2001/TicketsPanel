@@ -104,13 +104,7 @@ namespace TicketsPanel.Data
             // One to Many
             builder.Entity<Department>().HasMany(d => d.Categories).WithOne(c => c.Department).HasForeignKey(c => c.DepartmentId).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Department>().HasMany(d => d.Users).WithOne(u => u.Department).HasForeignKey(u => u.DepartmentId).OnDelete(DeleteBehavior.NoAction);
-          
-            // One to One
-            builder.Entity<Department>()
-                .HasOne(d => d.Manager)
-                .WithOne()
-                .HasForeignKey<Department>(d => d.ManagerId)
-                .OnDelete(DeleteBehavior.NoAction);
+
             #endregion
         }
     }

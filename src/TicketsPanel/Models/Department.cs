@@ -7,9 +7,7 @@ namespace TicketsPanel.Models
         public int DepartmentId { get; set; }
         public string Name { get; set; }
         public char Situation { get; set; } = 'A';
-        [Display(Name = "Gestor")]
-        public int ManagerId { get; set; }
-        public ApplicationUser? Manager { get; set; }
+
         [Display(Name = "Organização")]
         public int OrganizationId { get; set; }
         public Organization? Organization { get; set; }
