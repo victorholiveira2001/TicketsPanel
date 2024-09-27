@@ -21,7 +21,7 @@ namespace TicketsPanel.Controllers
         [Route("departamento")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Departments.Include(d => d.Manager).Include(d => d.Organization);
+            var applicationDbContext = _context.Departments.Include(d => d.Organization);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -35,7 +35,6 @@ namespace TicketsPanel.Controllers
             }
 
             var department = await _context.Departments
-                .Include(d => d.Manager)
                 .Include(d => d.Organization)
                 .FirstOrDefaultAsync(m => m.DepartmentId == id);
             if (department == null)
@@ -49,7 +48,6 @@ namespace TicketsPanel.Controllers
         [Route("departamento/criar")]
         public IActionResult Create()
         {
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "Name");
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "Name");
             return View();
         }
@@ -57,10 +55,9 @@ namespace TicketsPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("departamento/criar")]
-        public async Task<IActionResult> Create([Bind("DepartmentId,Name,ManagerId,OrganizationId")] Department department)
+        public async Task<IActionResult> Create([Bind("DepartmentId,Name,OrganizationId")] Department department)
         {
 
-            department.Manager = _context.Users.Find(department.ManagerId);
             department.Organization = _context.Organizations.Find(department.OrganizationId);
 
             if (ModelState.IsValid)
@@ -68,13 +65,8 @@ namespace TicketsPanel.Controllers
                 _context.Add(department);
                 await _context.SaveChangesAsync();
 
-                var user = _context.Users.Find(department.ManagerId);
-
-                await _userService.UpdateManagerId(department.DepartmentId, user);
-
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "UserName", department.ManagerId);
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "OrganizationId", department.OrganizationId);
             return View(department);
         }
@@ -92,7 +84,6 @@ namespace TicketsPanel.Controllers
             {
                 return NotFound();
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "UserName", department.ManagerId);
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "Name", department.OrganizationId);
             return View(department);
         }
@@ -100,7 +91,7 @@ namespace TicketsPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("departamento/editar/{id}")]
-        public async Task<IActionResult> Edit(int id, [Bind("DepartmentId,Name,Situation,ManagerId,OrganizationId")] Department department)
+        public async Task<IActionResult> Edit(int id, [Bind("DepartmentId,Name,Situation,OrganizationId")] Department department)
         {
             if (id != department.DepartmentId)
             {
@@ -111,12 +102,8 @@ namespace TicketsPanel.Controllers
             {
                 try
                 {
-                    var user = _context.Users.Find(department.ManagerId);
-
                     _context.Update(department);
                     await _context.SaveChangesAsync();
-                    await _userService.UpdateManagerId(department.DepartmentId, user);
-
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -131,7 +118,6 @@ namespace TicketsPanel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ManagerId"] = new SelectList(_context.Users, "UserId", "UserName", department.ManagerId);
             ViewData["OrganizationId"] = new SelectList(_context.Organizations, "OrganizationId", "OrganizationId", department.OrganizationId);
             return View(department);
         }
@@ -144,9 +130,7 @@ namespace TicketsPanel.Controllers
                 return NotFound();
             }
 
-            var department = await _context.Departments
-                .Include(d => d.Manager)
-                .Include(d => d.Organization)
+            var department = await _context.Departments                .Include(d => d.Organization)
                 .FirstOrDefaultAsync(m => m.DepartmentId == id);
             if (department == null)
             {
