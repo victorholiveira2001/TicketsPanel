@@ -20,7 +20,7 @@ namespace TicketsPanel.Models
 
         public Department Department { get; set; }
 
-        public ICollection<Ticket>? TicketsClient { get; set; }
+        public ICollection<Ticket> TicketsClient { get; set; }
         public ICollection<Ticket>? TicketsAttendant { get; set; }
         public ICollection<Message>? Messages { get; set; }
     }

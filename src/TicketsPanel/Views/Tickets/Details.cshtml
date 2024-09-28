@@ -16,6 +16,20 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Title)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Messages)
+        </dt>
+        <dd class="col-sm-10" id="messages">
+            @foreach (var message in Model.Messages)
+            {
+                <p>
+                    @Html.Raw(message.Sender.UserName)
+                    <div> 
+                        @Html.Raw(message.Body.Replace("\n", "<br />"))
+                    </div>
+                </p>
+            }
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Emails)
         </dt>
@@ -68,13 +82,13 @@
             @Html.DisplayNameFor(model => model.Department)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Department.DepartmentId)
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.CategoryId)
+            @Html.DisplayFor(model => model.Category.Name)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Priority)
@@ -91,6 +105,17 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.TicketId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model?.TicketId">Edit</a>
     <a asp-action="Index">Back to List</a>
 </div>
+<style>
+    .message-body {
+        white-space: pre-wrap;
+        text-align: left; /* ou center, dependendo da sua preferência */
+        margin: 0 auto;
+    }
+    #messages{
+        background-color: #D3D3D3;
+    }
+
+</style>

@@ -49,15 +49,8 @@ namespace TicketsPanel.Data
             builder.Entity<Ticket>().HasOne(c => c.Category).WithMany(c => c.Tickets).HasForeignKey(c => c.CategoryId).OnDelete(DeleteBehavior.NoAction);
             builder.Entity<Ticket>().HasOne(c => c.Attendant).WithMany(a => a.TicketsAttendant).HasForeignKey(c => c.AttendantId).OnDelete(DeleteBehavior.NoAction);
             //builder.Entity<Ticket>().HasOne(c => c.Priority).WithMany(p => p.Tickets).HasForeignKey(c => c.PriotiryId).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<Ticket>().HasOne(t => t.Client).WithMany(u => u.TicketsClient).HasForeignKey(t => t.ClientId);
 
-            // Many to Many
-            builder.Entity<Ticket>()
-                .HasMany(t => t.Clients)
-                .WithMany(u => u.TicketsClient)
-                .UsingEntity<Dictionary<string, object>>(
-                    "TicketClient",
-                    t => t.HasOne<ApplicationUser>().WithMany().HasForeignKey("ClientId"),
-                    c => c.HasOne<Ticket>().WithMany().HasForeignKey("TicketId"));
 
             #endregion
 

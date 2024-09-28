@@ -237,13 +237,14 @@ namespace TicketsPanel.Migrations
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     Emails = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Attachment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClientId = table.Column<int>(type: "int", nullable: false),
                     AttendantId = table.Column<int>(type: "int", nullable: true),
                     Situation = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     ReceiveResponse = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
                     SendReply = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    OpenTime = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "27/09/2024 17:09:33"),
+                    OpenTime = table.Column<string>(type: "nvarchar(max)", nullable: true, defaultValue: "27/09/2024 21:17:40"),
                     CloseTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Sla = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Sla = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Priority = table.Column<int>(type: "int", nullable: false, defaultValue: 1),
                     OrganizationId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -255,6 +256,12 @@ namespace TicketsPanel.Migrations
                         column: x => x.AttendantId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Tickets_AspNetUsers_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tickets_Categories_CategoryId",
                         column: x => x.CategoryId,
@@ -296,30 +303,6 @@ namespace TicketsPanel.Migrations
                         column: x => x.TicketId,
                         principalTable: "Tickets",
                         principalColumn: "TicketId");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TicketClient",
-                columns: table => new
-                {
-                    ClientId = table.Column<int>(type: "int", nullable: false),
-                    TicketId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TicketClient", x => new { x.ClientId, x.TicketId });
-                    table.ForeignKey(
-                        name: "FK_TicketClient_AspNetUsers_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TicketClient_Tickets_TicketId",
-                        column: x => x.TicketId,
-                        principalTable: "Tickets",
-                        principalColumn: "TicketId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -387,11 +370,6 @@ namespace TicketsPanel.Migrations
                 column: "TicketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TicketClient_TicketId",
-                table: "TicketClient",
-                column: "TicketId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Tickets_AttendantId",
                 table: "Tickets",
                 column: "AttendantId");
@@ -400,6 +378,11 @@ namespace TicketsPanel.Migrations
                 name: "IX_Tickets_CategoryId",
                 table: "Tickets",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tickets_ClientId",
+                table: "Tickets",
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Tickets_DepartmentId",
@@ -432,9 +415,6 @@ namespace TicketsPanel.Migrations
 
             migrationBuilder.DropTable(
                 name: "Messages");
-
-            migrationBuilder.DropTable(
-                name: "TicketClient");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

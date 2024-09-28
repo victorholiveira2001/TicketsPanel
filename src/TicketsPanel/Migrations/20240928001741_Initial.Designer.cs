@@ -12,7 +12,7 @@ using TicketsPanel.Data;
 namespace TicketsPanel.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240927200934_Initial")]
+    [Migration("20240928001741_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -156,21 +156,6 @@ namespace TicketsPanel.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("TicketClient", b =>
-                {
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TicketId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ClientId", "TicketId");
-
-                    b.HasIndex("TicketId");
-
-                    b.ToTable("TicketClient");
                 });
 
             modelBuilder.Entity("TicketsPanel.Models.ApplicationUser", b =>
@@ -392,6 +377,9 @@ namespace TicketsPanel.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime?>("CloseTime")
                         .HasColumnType("datetime2");
 
@@ -404,7 +392,7 @@ namespace TicketsPanel.Migrations
                     b.Property<string>("OpenTime")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("nvarchar(max)")
-                        .HasDefaultValue("27/09/2024 17:09:33");
+                        .HasDefaultValue("27/09/2024 21:17:40");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
@@ -440,6 +428,8 @@ namespace TicketsPanel.Migrations
                     b.HasIndex("AttendantId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("ClientId");
 
                     b.HasIndex("DepartmentId");
 
@@ -495,21 +485,6 @@ namespace TicketsPanel.Migrations
                     b.HasOne("TicketsPanel.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TicketClient", b =>
-                {
-                    b.HasOne("TicketsPanel.Models.ApplicationUser", null)
-                        .WithMany()
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TicketsPanel.Models.Ticket", null)
-                        .WithMany()
-                        .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -579,6 +554,12 @@ namespace TicketsPanel.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.HasOne("TicketsPanel.Models.ApplicationUser", "Client")
+                        .WithMany("TicketsClient")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TicketsPanel.Models.Department", "Department")
                         .WithMany("Tickets")
                         .HasForeignKey("DepartmentId")
@@ -593,6 +574,8 @@ namespace TicketsPanel.Migrations
 
                     b.Navigation("Category");
 
+                    b.Navigation("Client");
+
                     b.Navigation("Department");
                 });
 
@@ -601,6 +584,8 @@ namespace TicketsPanel.Migrations
                     b.Navigation("Messages");
 
                     b.Navigation("TicketsAttendant");
+
+                    b.Navigation("TicketsClient");
                 });
 
             modelBuilder.Entity("TicketsPanel.Models.Category", b =>

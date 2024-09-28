@@ -6,41 +6,60 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
+<head>
+    <style>
+        #Create a {
+            display: inline-block; /* Permite definir altura e largura */
+            padding: 10px 20px; /* Espaçamento interno (padding) para tornar o botão retangular */
+            background-color: #6495ED; /* Cor de fundo do botão */
+            color: white; /* Cor do texto */
+            text-align: center; /* Centraliza o texto no botão */
+            border-radius: 12px; /* Define bordas arredondadas */
+            text-decoration: none; /* Remove o sublinhado do link */
+            font-size: 16px; /* Tamanho do texto */
+            font-family: Arial, sans-serif; /* Define a fonte */
+        }
+
+            #Create a:hover {
+                background-color: #4169E1; /* Cor de fundo ao passar o mouse */
+            }
+
+        tr[data-href] {
+            cursor: pointer; /* Mostra um cursor de mão ao passar o mouse */
+        }
+
+            tr[data-href]:hover {
+                background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+            }
+
+
+    </style>
+</head>
+
+<p id="Create">
+    <a asp-action="Create">Criar</a>
+   
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.TicketId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Emails)
+                @Html.DisplayNameFor(model => model.Department)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Attachment)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Situation)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ReceiveResponse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SendReply)
+                @Html.DisplayNameFor(model => model.Client)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OpenTime)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CloseTime)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Sla)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Department)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Category)
@@ -51,41 +70,32 @@
             <th>
                 @Html.DisplayNameFor(model => model.Attendant)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Situation)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
+        <tr data-href="@Url.Action("Detalhes", "Chamado", new { id = item.TicketId })">
+            <td>
+                @Html.DisplayFor(modelitem => item.TicketId)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Emails)
+                @Html.DisplayFor(modelItem => item.Department.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Attachment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Situation)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReceiveResponse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SendReply)
+                @Html.DisplayFor(modelItem => item.Client.UserName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OpenTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.CloseTime)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Sla)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Department.DepartmentId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.CategoryId)
@@ -97,11 +107,22 @@
                 @Html.DisplayFor(modelItem => item.Attendant.UserName)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.TicketId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.TicketId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.TicketId">Delete</a>
+                @Html.DisplayFor(modelItem => item.Situation)
             </td>
         </tr>
 }
     </tbody>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const rows = document.querySelectorAll("tr[data-href]");
+
+            rows.forEach(row => {
+                row.addEventListener("click", function () {
+                    window.location.href = this.dataset.href;
+                });
+            });
+        });
+
+    </script>
 </table>

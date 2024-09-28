@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +7,13 @@ using TicketsPanel.Models;
 
 namespace TicketsPanel.Controllers
 {
+    //[Authorize]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TicketsController(ApplicationDbContext context, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
+        public TicketsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -28,7 +23,7 @@ namespace TicketsPanel.Controllers
         [Route("Chamado")]
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Tickets.Include(t => t.Attendant).Include(t => t.Category).Include(t => t.Department);
+            var applicationDbContext = _context.Tickets.Include(t => t.Client).Include(t => t.Attendant).Include(t => t.Category).Include(t => t.Department);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -45,7 +40,11 @@ namespace TicketsPanel.Controllers
                 .Include(t => t.Attendant)
                 .Include(t => t.Category)
                 .Include(t => t.Department)
+                .Include(t => t.Messages)
+                    .ThenInclude(m => m.Sender)
                 .FirstOrDefaultAsync(m => m.TicketId == id);
+
+
             if (ticket == null)
             {
                 return NotFound();
@@ -58,6 +57,9 @@ namespace TicketsPanel.Controllers
         [Route("Chamado/Criar")]
         public IActionResult Create()
         {
+            var ticket = _context.Tickets.Include(t => t.Messages);
+
+
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "Name");
             return View();
@@ -69,13 +71,27 @@ namespace TicketsPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Chamado/Criar")]
-        public async Task<IActionResult> Create([Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
+        public async Task<IActionResult> Create(Ticket ticket)//[Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
         {
-            ticket.Clients = new List<ApplicationUser>() { await _userManager.GetUserAsync(User) };
+
+            if (ticket.NewMessage != null)
+            {
+                ticket.NewMessage.SentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                ticket.NewMessage.SenderId = 1;
+                ticket.Messages.Add(ticket.NewMessage);
+            }
+               
+            
+            ticket.Client =  await _userManager.GetUserAsync(User);
+            ticket.ClientId = 1;
+
+            //ticket.ClientId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (ModelState.IsValid)
             {
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
+                
+
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", ticket.CategoryId);
