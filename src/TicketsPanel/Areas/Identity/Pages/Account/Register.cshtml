@@ -13,33 +13,9 @@
             <hr />
             <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
             <div class="form-floating mb-3">
-                <input asp-for="Input.UserName" class="form-control" autocomplete="username" aria-required="true"/>
-                <label asp-for="Input.UserName">Nome</label>
-                <span asp-validation-for="Input.UserName" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.SSN" class="form-control" autocomplete="username" aria-required="true" id="ssn"/>
-                <label asp-for="Input.SSN">CPF</label>
-                <span asp-validation-for="Input.SSN" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="nome.sobrenome@moreira.com.br" />
+                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <label asp-for="Input.Email">Email</label>
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="username" aria-required="true"/>
-                <label asp-for="Input.PhoneNumber">Telefone</label>
-                <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-floating mb-3">
-                <input asp-for="Input.Position" class="form-control" autocomplete="username" aria-required="true"/>
-                <label asp-for="Input.Position">Cargo</label>
-                <span asp-validation-for="Input.Position" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Input.DepartmentId" class="control-label"></label>
-                <select asp-for="Input.DepartmentId" class="form-control" asp-items="ViewBag.DepartmentId"></select>
             </div>
             <div class="form-floating mb-3">
                 <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
@@ -87,46 +63,5 @@
 </div>
 
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-unobtrusive-ajax/3.2.6/jquery.unobtrusive-ajax.min.js"></script>
-
-
     <partial name="_ValidationScriptsPartial" />
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#ssn').mask('000.000.000-00');
-        });
-    </script>
-
-    <script>
-        $.validator.addMethod("ssn", function (value, element, param) {
-            return Validate(value); //chama um método validaCPF implementado em javascript
-        });
-        $.validator.unobtrusive.adapters.addBool("ssn");
-
-        function Validate(s) {
-            var i;
-            var l = '';
-            for (i = 0; i < s.length; i++) if (!isNaN(s.charAt(i))) l += s.charAt(i);
-            s = l;
-            if (s.length != 11) return false;
-            var c = s.substr(0, 9);
-            var dv = s.substr(9, 2);
-            var d1 = 0;
-            for (i = 0; i < 9; i++) d1 += c.charAt(i) * (10 - i);
-            if (d1 == 0) return false;
-            d1 = 11 - (d1 % 11);
-            if (d1 > 9) d1 = 0;
-            if (dv.charAt(0) != d1) return false;
-            d1 *= 2;
-            for (i = 0; i < 9; i++) d1 += c.charAt(i) * (11 - i)
-            d1 = 11 - (d1 % 11);
-            if (d1 > 9) d1 = 0;
-            if (dv.charAt(1) != d1) return false;
-            return true;
-        }
-    </script>
-
 }
