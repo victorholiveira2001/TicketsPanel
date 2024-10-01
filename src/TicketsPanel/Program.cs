@@ -53,6 +53,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddTransient<EmailSender>();
+builder.Services.AddTransient<EmailSettings>();
 
 var app = builder.Build();
 
