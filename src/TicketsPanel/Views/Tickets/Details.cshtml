@@ -1,4 +1,6 @@
-﻿@model TicketsPanel.Models.Ticket
+﻿@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@model TicketsPanel.Models.Ticket
 
 @{
     ViewData["Title"] = "Details";
@@ -23,11 +25,27 @@
             @foreach (var message in Model.Messages)
             {
                 <p>
-                    @Html.Raw(message.Sender.UserName)
+                    @if (message.Sender.Id == Model.AttendantId){
+                        @Html.Raw(message.Sender.UserName + " - Atendente");
+                    }
+                    else
+                    {
+                        @Html.Raw(message.Sender.UserName + " - Cliente");
+                    }
                     <div> 
                         @Html.Raw(message.Body.Replace("\n", "<br />"))
                     </div>
                 </p>
+                @if (Model.AttendantId == int.Parse(UserManager.GetUserId(User)))
+                {
+                    <div class="bottom-arrow">
+                        <form id='commentsReplies_@message.MessageId' class="reply-form">
+                            <fieldset name='post'>
+                                <button class='reply' type='button' onclick="openReplyBox('@message.MessageId')">Responder</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                }
             }
         </dd>
         <dt class = "col-sm-2">
@@ -107,6 +125,10 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model?.TicketId">Edit</a>
     <a asp-action="Index">Back to List</a>
+    @if (Model.AttendantId is null)
+    {
+        <a asp-action="Take" asp-route-id="@Model?.TicketId">Vincular</a>
+    }
 </div>
 <style>
     .message-body {
@@ -118,4 +140,61 @@
         background-color: #D3D3D3;
     }
 
+    /*********************************************************/
+
+    .bottom-arrow {
+        border-bottom: 5px solid #6A0136;
+    }
+
+        .bottom-arrow:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            width: 0;
+            height: 0;
+            border-top: 25px solid #6A0136;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+        }
+
+    /**********************************************************/
+
+    /* Estilos para o botão de resposta */
+    .postCom {
+        background-color: #007bff; /* Azul para o botão */
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+        /* Efeito ao passar o mouse no botão */
+        .postCom:hover {
+            background-color: #0056b3;
+        }
+
 </style>
+<script>
+    function openReplyBox(messageId) {
+        // Verifica se a caixa de resposta já existe
+        var form = document.getElementById('commentsReplies_' + messageId);
+        var existingTextarea = form.querySelector('textarea');
+
+        // Se a caixa já existir, não adiciona outra
+        if (!existingTextarea) {
+            // Cria uma nova textarea
+            var textarea = document.createElement('textarea');
+            textarea.name = 'reply';
+            textarea.placeholder = 'Digite sua resposta...';
+            textarea.rows = 8;
+            textarea.cols = 80;
+
+            // Adiciona a textarea ao formulário
+            form.appendChild(textarea);
+        }
+    }
+</script>

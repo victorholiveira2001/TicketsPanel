@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TicketsPanel.Data;
+using TicketsPanel.Enums;
 using TicketsPanel.Models;
 
 namespace TicketsPanel.Controllers
@@ -11,9 +13,9 @@ namespace TicketsPanel.Controllers
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
 
-        public TicketsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public TicketsController(ApplicationDbContext context, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -83,7 +85,7 @@ namespace TicketsPanel.Controllers
                
             
             ticket.Client =  await _userManager.GetUserAsync(User);
-            ticket.ClientId = 1;
+            ticket.ClientId = ticket.Client.Id;
 
             //ticket.ClientId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (ModelState.IsValid)
@@ -97,6 +99,21 @@ namespace TicketsPanel.Controllers
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", ticket.CategoryId);
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", ticket.DepartmentId);
             return View(ticket);
+        }
+
+        public async Task<IActionResult> Take(int id)
+        {
+            var ticket = await _context.Tickets.FindAsync(id);
+
+            var attendant = await _userManager.FindByIdAsync(User.Identity.GetUserId());
+
+            ticket.AttendantId = attendant.Id;
+            ticket.Situation = Situation.WaitingForAttendent;
+
+            _context.Update(ticket);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction($"Detalhes", "Chamado", new { id = ticket.TicketId });
         }
 
         // GET: Tickets/Edit/5
