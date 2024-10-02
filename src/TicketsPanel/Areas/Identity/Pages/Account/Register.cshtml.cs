@@ -16,8 +16,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using TicketsPanel.Data;
 using TicketsPanel.Models;
 
 namespace TicketsPanel.Areas.Identity.Pages.Account
@@ -30,13 +33,15 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +49,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context = context;
         }
 
         /// <summary>
@@ -71,6 +77,15 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+
+            [Required]
+            [Display(Name = "Nome")]
+            public string UserName { get; set; }
+
+            [Required]
+            [Display(Name = "CPF")]
+            [StringLength(14, ErrorMessage = "O campo CPF deve conter 14 dígitos.")]
+            public string SSN { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -79,6 +94,17 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
+
+            [Display(Name = "Telefone")]
+            public string? PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "Cargo")]
+            public string Position { get; set; }
+
+            public int DepartmentId { get; set; }
+
+            public char Situation { get; set; } = 'A';
 
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -105,6 +131,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "Name");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -117,6 +144,14 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+
+                user.UserName = Input.UserName;
+                user.SSN = Input.SSN;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.Position = Input.Position;
+                user.Situation = Input.Situation;
+                user.DepartmentId = Input.DepartmentId;
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
