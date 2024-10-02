@@ -4,10 +4,10 @@ using System.Net.Mail;
 
 namespace TicketsPanel.Services
 {
-    public class EmailSender (EmailSettings settings, IConfiguration _configuration): IEmailSender
+    public class EmailSender (EmailSettings settings, IConfiguration configuration): IEmailSender
     {
         private readonly EmailSettings _settings = settings;
-        private readonly IConfiguration configuration = _configuration;
+        private readonly IConfiguration _configuration = configuration;
         public Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             string host = _configuration.GetValue<string>("Smtp:Server");
@@ -24,7 +24,7 @@ namespace TicketsPanel.Services
 
             var mailMessage = new MailMessage()
             {
-                From = new MailAddress(userName, fromAddress),
+                From = new MailAddress(fromAddress, "TicketsPanel"),
                 Subject = subject,
                 Body = htmlMessage,
                 IsBodyHtml = true
