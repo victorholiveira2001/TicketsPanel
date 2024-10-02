@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TicketsPanel.Data;
 using TicketsPanel.Models;
+using TicketsPanel.Services;
 
 namespace TicketsPanel.Areas.Identity.Pages.Account
 {
@@ -32,7 +33,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly EmailSender _emailSender;
         private readonly ApplicationDbContext _context;
 
         public RegisterModel(
@@ -40,7 +41,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender,
+            EmailSender emailSender,
             ApplicationDbContext context)
         {
             _userManager = userManager;
@@ -80,6 +81,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
 
             [Required]
             [Display(Name = "Nome")]
+            public string Name { get; set; }
             public string UserName { get; set; }
 
             [Required]
@@ -145,6 +147,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
+                user.Name = Input.Name;
                 user.UserName = Input.UserName;
                 user.SSN = Input.SSN;
                 user.PhoneNumber = Input.PhoneNumber;

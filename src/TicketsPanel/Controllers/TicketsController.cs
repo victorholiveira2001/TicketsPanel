@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,13 +9,13 @@ using TicketsPanel.Models;
 
 namespace TicketsPanel.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class TicketsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public TicketsController(ApplicationDbContext context, Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager)
+        public TicketsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -78,13 +78,15 @@ namespace TicketsPanel.Controllers
 
             if (ticket.NewMessage != null)
             {
+                var sender = await _userManager.GetUserAsync(User);
+
                 ticket.NewMessage.SentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                ticket.NewMessage.SenderId = 1;
+                ticket.NewMessage.SenderId = sender.Id;
                 ticket.Messages.Add(ticket.NewMessage);
             }
-               
-            
-            ticket.Client =  await _userManager.GetUserAsync(User);
+
+
+            ticket.Client = await _userManager.GetUserAsync(User);
             ticket.ClientId = ticket.Client.Id;
 
             //ticket.ClientId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -92,7 +94,7 @@ namespace TicketsPanel.Controllers
             {
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
-                
+
 
                 return RedirectToAction(nameof(Index));
             }
@@ -105,7 +107,7 @@ namespace TicketsPanel.Controllers
         {
             var ticket = await _context.Tickets.FindAsync(id);
 
-            var attendant = await _userManager.FindByIdAsync(User.Identity.GetUserId());
+            var attendant = await _userManager.GetUserAsync(User);
 
             ticket.AttendantId = attendant.Id;
             ticket.Situation = Situation.WaitingForAttendent;
@@ -114,6 +116,20 @@ namespace TicketsPanel.Controllers
             await _context.SaveChangesAsync();
 
             return RedirectToAction($"Detalhes", "Chamado", new { id = ticket.TicketId });
+        }
+
+        public async Task<IActionResult> Finish(int id)
+        {
+            var ticket = _context.Tickets.FirstOrDefault(t => t.TicketId == id);
+
+            ticket.Situation = Situation.Finished;
+            ticket.CloseTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+
+            _context.Update(ticket);
+
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index", "Chamado");
         }
 
         // GET: Tickets/Edit/5

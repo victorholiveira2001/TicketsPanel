@@ -8,6 +8,8 @@ namespace TicketsPanel.Enums
         [Display(Name = "Sem atendente definido")]
         NotDefinedAttendent,
         [Display(Name = "Aguardando atendente")]
-        WaitingForAttendent
+        WaitingForAttendent,
+        [Display(Name = "Chamado Encerrado")]
+        Finished
     }
 }

@@ -9,6 +9,7 @@ namespace TicketsPanel.Models
 {
     public class ApplicationUser : IdentityUser<int>
     {
+        public string Name { get; set; }
         public string SSN { get; set; }
         public char? Situation { get; set; } = 'A';
         public int DepartmentId { get; set; }

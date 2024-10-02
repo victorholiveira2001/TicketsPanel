@@ -3,10 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TicketsPanel.Models;
 using TicketsPanel.Data;
 using TicketsPanel.Services;
-using FluentValidation;
-using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Build.Execution;
+using Microsoft.AspNetCore.DataProtection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +17,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddDataProtection()
+        .PersistKeysToFileSystem(new DirectoryInfo(@"C:\Keys\TicketsPanel"));
+
 builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
@@ -28,10 +28,6 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<int>>(options => opti
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
-    // Default UserName settings
-    options.User.AllowedUserNameCharacters =
-        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-
     // Default Password settings.
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
@@ -50,7 +46,12 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Lockout.AllowedForNewUsers = true;
 });
 
-    
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+    options.SlidingExpiration = true;
+});
+
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddTransient<EmailSender>();

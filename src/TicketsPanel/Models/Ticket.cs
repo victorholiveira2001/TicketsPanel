@@ -22,7 +22,7 @@ namespace TicketsPanel.Models
         public bool ReceiveResponse { get; set; } = true;
         public bool SendReply { get; set; } = true;
         public string OpenTime { get; set; }
-        public DateTime? CloseTime { get; set; } = null;
+        public string CloseTime { get; set; } = null;
         public DateTime Sla { get; set; }
 
         [Display(Name = "Departamento")]
