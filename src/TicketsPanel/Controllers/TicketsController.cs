@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Net.Sockets;
 using TicketsPanel.Data;
 using TicketsPanel.Enums;
 using TicketsPanel.Models;
@@ -117,6 +118,35 @@ namespace TicketsPanel.Controllers
 
             return RedirectToAction($"Detalhes", "Chamado", new { id = ticket.TicketId });
         }
+
+        public async Task<IActionResult> SendMessage(int ticketId, string content)
+        {
+            var ticket = await _context.Tickets.FindAsync(ticketId);
+
+
+            var sender = await _userManager.GetUserAsync(User);
+
+            ticket.Messages = new List<Message> {
+                new Message
+                {
+                    Body = content,
+                    SentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"),
+                    SenderId = sender.Id,
+                    TicketId = ticket.TicketId
+                }
+             };
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(ticket);
+                await _context.SaveChangesAsync();
+
+
+                return RedirectToAction("Detalhes", "Chamado", new {id = ticket.TicketId});
+            }
+
+            return View();
+        } 
 
         public async Task<IActionResult> Finish(int id)
         {

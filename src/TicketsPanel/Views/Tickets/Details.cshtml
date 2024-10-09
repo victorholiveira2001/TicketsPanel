@@ -26,27 +26,39 @@
             {
                 <p>
                     @if (message.Sender.Id == Model.AttendantId){
-                        @Html.Raw(message.Sender.UserName + " - Atendente");
+                        @Html.Raw(message.Sender.Name + " - Atendente");
                     }
                     else
                     {
-                        @Html.Raw(message.Sender.UserName + " - Cliente");
+                        @Html.Raw(message.Sender.Name + " - Cliente");
                     }
                     <div> 
                         @Html.Raw(message.Body.Replace("\n", "<br />"))
                     </div>
                 </p>
-                @if (Model.AttendantId == int.Parse(UserManager.GetUserId(User)) ||
-                     Model.ClientId == int.Parse(UserManager.GetUserId(User)))
-                {
-                    <div class="bottom-arrow">
-                        <form id='commentsReplies_@message.MessageId' class="reply-form">
-                            <fieldset name='post'>
-                                <button class='reply' type='button' onclick="openReplyBox('@message.MessageId')">Responder</button>
-                            </fieldset>
-                        </form>
-                    </div>
-                }
+                <hr>
+            }
+            @if (Model.AttendantId == int.Parse(UserManager.GetUserId(User)) ||
+            Model.ClientId == int.Parse(UserManager.GetUserId(User)))
+            {
+                var message = new Message();
+
+                <div class="bottom-arrow">
+                    <!-- Formulário para enviar a resposta -->
+                    <form method="post" asp-action="SendMessage" id='commentsReplies_@message.MessageId' class="reply-form">
+                        <input type="hidden" name="userId" value="@int.Parse(UserManager.GetUserId(User))" />
+                        <input type="hidden" name="ticketId" value="@Model.TicketId" />
+
+                        <!-- Botão para abrir a caixa de resposta -->
+                        <fieldset name='post'>
+                            <button class='reply' type='button' onclick="openReplyBox('@message.MessageId')">Responder</button>
+                        </fieldset>
+
+                        <!-- A textarea e o botão de enviar estarão inicialmente escondidos -->
+                        <textarea hidden id="replyTextArea_@message.MessageId" name="content" placeholder="Digite sua resposta..." rows="3" cols="80"></textarea>
+                        <button hidden id="send_@message.MessageId" type="submit" class="postCom">Enviar</button>
+                    </form>
+                </div>
             }
         </dd>
         <dt class = "col-sm-2">
@@ -189,21 +201,8 @@
 </style>
 <script>
     function openReplyBox(messageId) {
-        // Verifica se a caixa de resposta já existe
-        var form = document.getElementById('commentsReplies_' + messageId);
-        var existingTextarea = form.querySelector('textarea');
-
-        // Se a caixa já existir, não adiciona outra
-        if (!existingTextarea) {
-            // Cria uma nova textarea
-            var textarea = document.createElement('textarea');
-            textarea.name = 'reply';
-            textarea.placeholder = 'Digite sua resposta...';
-            textarea.rows = 8;
-            textarea.cols = 80;
-
-            // Adiciona a textarea ao formulário
-            form.appendChild(textarea);
-        }
+        // Exibe a textarea e o botão de enviar quando "Responder" for clicado
+        document.getElementById('replyTextArea_' + messageId).removeAttribute('hidden');
+        document.getElementById('send_' + messageId).removeAttribute('hidden');
     }
 </script>
