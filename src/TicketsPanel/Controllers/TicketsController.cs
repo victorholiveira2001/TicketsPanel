@@ -61,13 +61,12 @@ namespace TicketsPanel.Controllers
 
         // GET: Tickets/Create
         [Route("Chamado/Criar")]
-        public IActionResult Create()
+        public IActionResult Create(int DepartmentId)
         {
             var ticket = _context.Tickets.Include(t => t.Messages);
 
+            ViewBag.Departments = new SelectList(_context.Departments, "DepartmentId", "Name");
 
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "Name");
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "Name");
             return View();
         }
 
@@ -91,8 +90,8 @@ namespace TicketsPanel.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", ticket.CategoryId);
-            ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", ticket.DepartmentId);
+            ViewBag.DepartmentId = new SelectList(_context.Departments, "DepartmentId", "Name");
+            ViewBag.CategoryId = new SelectList(_context.Categories, "CategoryId", "Name");
             return View(ticket);
             
         }
@@ -215,6 +214,16 @@ namespace TicketsPanel.Controllers
         private bool TicketExists(int id)
         {
             return _context.Tickets.Any(e => e.TicketId == id);
+        }
+
+        public JsonResult GetCategoriesByDepartment(int departmentId)
+        {
+            var categories = _context.Categories
+                                     .Where(c => c.DepartmentId == departmentId)
+                                     .Select(c => new { c.CategoryId, c.Name })
+                                     .ToList();
+
+            return Json(categories);
         }
     }
 }
