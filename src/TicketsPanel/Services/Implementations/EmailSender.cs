@@ -2,9 +2,9 @@
 using System.Net;
 using System.Net.Mail;
 
-namespace TicketsPanel.Services
+namespace TicketsPanel.Services.Implementations
 {
-    public class EmailSender (EmailSettings settings, IConfiguration configuration): IEmailSender
+    public class EmailSender(EmailSettings settings, IConfiguration configuration) : IEmailSender
     {
         private readonly EmailSettings _settings = settings;
         private readonly IConfiguration _configuration = configuration;

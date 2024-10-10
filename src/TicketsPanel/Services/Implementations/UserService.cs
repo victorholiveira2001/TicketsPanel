@@ -1,7 +1,7 @@
 ﻿using TicketsPanel.Data;
 using TicketsPanel.Models;
 
-namespace TicketsPanel.Services
+namespace TicketsPanel.Services.Implementations
 {
     public class UserService
     {

@@ -1,8 +1,10 @@
 using Isopoh.Cryptography.Argon2;
 using TicketsPanel.Models;
 
-namespace TicketsPanel.Services{
-    public class PasswordHasher{
+namespace TicketsPanel.Services.Implementations
+{
+    public class PasswordHasher
+    {
         public string SetPassword(string password)
         {
             return Argon2.Hash(password);

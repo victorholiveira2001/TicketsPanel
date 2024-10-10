@@ -1,4 +1,4 @@
-﻿namespace TicketsPanel.Services
+﻿namespace TicketsPanel.Services.Implementations
 {
     public class EmailSettings
     {
