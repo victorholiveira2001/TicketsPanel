@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using NuGet.Common;
 using TicketsPanel.Models;
-using TicketsPanel.Services;
+using TicketsPanel.Services.Implementations;
 
 namespace TicketsPanel.Areas.Identity.Pages.Account
 {

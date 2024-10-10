@@ -1,0 +1,76 @@
+﻿/* Styles for the Message field*/
+
+.message-body {
+    white-space: pre-wrap;
+    text-align: left; 
+    margin: 0 auto;
+}
+
+#messages {
+    background-color: #D3D3D3;
+}
+
+#messages-hub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    
+}
+
+#time-message {
+    float: right !important;
+}
+
+#reply-textarea {
+    width: 700px;
+    height: 200px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px; 
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+#send{
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* Styles for the reply field */
+
+.reply {
+    background-color: steelblue;
+    color: white;
+    border: none;
+    padding: 7px 21px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+    .reply:hover {
+        background-color: royalblue;
+    }
+.postCom {
+    background-color: darkgreen;
+    color: white;
+    border: none;
+    padding: 7px 48px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+    .postCom:hover {
+        background-color: darkslategrey;
+    }
+
+/* Styles for the Reopen Ticket  */
+
+#btn-reopen{
+    background-color: dodgerblue ;
+}
+
+    #btn-reopen:hover{
+        background-color: mediumblue;
+    }

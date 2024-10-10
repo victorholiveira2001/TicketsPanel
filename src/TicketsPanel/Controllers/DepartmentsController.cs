@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TicketsPanel.Data;
 using TicketsPanel.Models;
-using TicketsPanel.Services;
+using TicketsPanel.Services.Implementations;
 
 namespace TicketsPanel.Controllers
 {

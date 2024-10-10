@@ -22,7 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using TicketsPanel.Data;
 using TicketsPanel.Models;
-using TicketsPanel.Services;
+using TicketsPanel.Services.Implementations;
 
 namespace TicketsPanel.Areas.Identity.Pages.Account
 {

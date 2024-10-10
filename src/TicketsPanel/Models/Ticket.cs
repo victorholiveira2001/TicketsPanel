@@ -38,9 +38,5 @@ namespace TicketsPanel.Models
         [Display(Name = "Mensagem")]
         public ICollection<Message> Messages { get; set; } = new List<Message>();
 
-
-        [NotMapped]
-        public Message NewMessage { get; set; }
-
     }
 }

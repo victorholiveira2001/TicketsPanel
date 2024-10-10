@@ -3,13 +3,64 @@
 @model TicketsPanel.Models.Ticket
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalhes";
 }
 
-<h1>Details</h1>
+<h1>Detalhes</h1>
+
+<head>
+    <link rel="stylesheet" href="~/css/Tickets/details.css"/>
+</head>
 
 <div>
-    <h4>Ticket</h4>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model?.TicketId">Edit</a>
+        <a asp-action="Index">Back to List</a>
+        @{
+            var user = await UserManager.GetUserAsync(User);
+
+            if (Model.AttendantId is null && Model.ClientId != user.Id)
+            {
+                <a asp-action="Take" asp-route-id="@Model?.TicketId">Vincular</a>
+            }
+            if (Model.AttendantId == user.Id && Model.Situation != TicketsPanel.Enums.Situation.Finished)
+            {
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#finalizarModal">Encerrar</button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="finalizarModal" tabindex="-1" aria-labelledby="finalizarModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="finalizarModalLabel">Encerrar Ticket</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form class="modal-body" asp-action="Finish">
+                                <input type="hidden" name="ticketId" value="@Model.TicketId" />
+
+                                <label for="encerramentoMensagem">Escreva a mensagem de encerramento:</label>
+                                <textarea class="form-control" name="body" id="encerramentoMensagem" rows="8" cols="100" placeholder="Descreva o motivo do encerramento"></textarea>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button type="submit" class="btn btn-danger">Encerrar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (Model.AttendantId == user.Id)
+            {
+
+                <form method="post" asp-action="ReOpen">
+                    <input type="hidden" name="ticketId" value="@Model.TicketId"/>
+
+                    <button type="submit" class="btn btn-primary" id="btn-reopen">Reabrir Chamado</button>
+                </form>
+            }
+        }
+    </div>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -22,31 +73,40 @@
             @Html.DisplayNameFor(model => model.Messages)
         </dt>
         <dd class="col-sm-10" id="messages">
-            @foreach (var message in Model.Messages)
+            @foreach (var message in Model.Messages.OrderByDescending(m => m.MessageId))
             {
-                <p>
+                <div id="message-hub">
                     @if (message.Sender.Id == Model.AttendantId){
-                        @Html.Raw(message.Sender.UserName + " - Atendente");
+                        @Html.Raw(message.Sender.Name + " - Atendente");
                     }
                     else
                     {
-                        @Html.Raw(message.Sender.UserName + " - Cliente");
+                        @Html.Raw(message.Sender.Name + " - Cliente");
                     }
                     <div> 
                         @Html.Raw(message.Body.Replace("\n", "<br />"))
                     </div>
-                </p>
-                @if (Model.AttendantId == int.Parse(UserManager.GetUserId(User)) ||
-                     Model.ClientId == int.Parse(UserManager.GetUserId(User)))
-                {
-                    <div class="bottom-arrow">
-                        <form id='commentsReplies_@message.MessageId' class="reply-form">
-                            <fieldset name='post'>
-                                <button class='reply' type='button' onclick="openReplyBox('@message.MessageId')">Responder</button>
-                            </fieldset>
-                        </form>
-                    </div>
-                }
+                </div>
+                <span id="time-message">@message.SentTime</span>
+                <hr>
+            }
+            @if ((Model.AttendantId == int.Parse(UserManager.GetUserId(User)) ||
+                  Model.ClientId == int.Parse(UserManager.GetUserId(User))) && 
+                  Model.Situation != TicketsPanel.Enums.Situation.Finished)
+            {
+                <div class="bottom-arrow">
+                    <form method="post" asp-action="SendMessage" class="reply-form">
+                        <input type="hidden" name="userId" value="@int.Parse(UserManager.GetUserId(User))" />
+                        <input type="hidden" name="ticketId" value="@Model.TicketId" />
+
+                        <fieldset name='post'>
+                            <button class='reply' type='button' onclick="openReplyBox()">Responder</button>
+                        </fieldset>
+
+                        <textarea hidden id="reply-textarea" name="content" placeholder="Digite sua resposta..."></textarea>
+                        <button hidden id="send" type="submit" class="postCom">Enviar</button>
+                    </form>
+                </div>
             }
         </dd>
         <dt class = "col-sm-2">
@@ -123,87 +183,4 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.TicketId">Edit</a>
-    <a asp-action="Index">Back to List</a>
-    @{
-        var user = await UserManager.GetUserAsync(User);
-
-        if (Model.AttendantId is null && Model.ClientId != user.Id)
-        {
-            <a asp-action="Take" asp-route-id="@Model?.TicketId">Vincular</a>
-        }
-        if (Model.AttendantId == user.Id)
-        {
-            <a asp-action="Finish" asp-route-id="@Model?.TicketId">Finalizar</a>
-        }
-    }
-</div>
-<style>
-    .message-body {
-        white-space: pre-wrap;
-        text-align: left; /* ou center, dependendo da sua preferência */
-        margin: 0 auto;
-    }
-    #messages{
-        background-color: #D3D3D3;
-    }
-
-    /*********************************************************/
-
-    .bottom-arrow {
-        border-bottom: 5px solid #6A0136;
-    }
-
-        .bottom-arrow:after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-            width: 0;
-            height: 0;
-            border-top: 25px solid #6A0136;
-            border-left: 50px solid transparent;
-            border-right: 50px solid transparent;
-        }
-
-    /**********************************************************/
-
-    /* Estilos para o botão de resposta */
-    .postCom {
-        background-color: #007bff; /* Azul para o botão */
-        color: white;
-        border: none;
-        padding: 5px 10px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-        /* Efeito ao passar o mouse no botão */
-        .postCom:hover {
-            background-color: #0056b3;
-        }
-
-</style>
-<script>
-    function openReplyBox(messageId) {
-        // Verifica se a caixa de resposta já existe
-        var form = document.getElementById('commentsReplies_' + messageId);
-        var existingTextarea = form.querySelector('textarea');
-
-        // Se a caixa já existir, não adiciona outra
-        if (!existingTextarea) {
-            // Cria uma nova textarea
-            var textarea = document.createElement('textarea');
-            textarea.name = 'reply';
-            textarea.placeholder = 'Digite sua resposta...';
-            textarea.rows = 8;
-            textarea.cols = 80;
-
-            // Adiciona a textarea ao formulário
-            form.appendChild(textarea);
-        }
-    }
-</script>
+<script src="~/js/Tickets/details.js"></script>

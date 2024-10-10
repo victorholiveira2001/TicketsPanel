@@ -3,9 +3,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using TicketsPanel.Data;
 using TicketsPanel.Enums;
 using TicketsPanel.Models;
+using TicketsPanel.Services.Interfaces;
 
 namespace TicketsPanel.Controllers
 {
@@ -14,11 +16,13 @@ namespace TicketsPanel.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ITicketService _ticketService;
 
-        public TicketsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public TicketsController(ApplicationDbContext context, UserManager<ApplicationUser> userManager, ITicketService ticketService)
         {
             _context = context;
             _userManager = userManager;
+            _ticketService = ticketService;
         }
 
         // GET: Tickets
@@ -73,34 +77,24 @@ namespace TicketsPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Chamado/Criar")]
-        public async Task<IActionResult> Create(Ticket ticket)//[Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
+        public async Task<IActionResult> Create(Ticket ticket, string body)//[Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
         {
-
-            if (ticket.NewMessage != null)
-            {
-                var sender = await _userManager.GetUserAsync(User);
-
-                ticket.NewMessage.SentTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                ticket.NewMessage.SenderId = sender.Id;
-                ticket.Messages.Add(ticket.NewMessage);
-            }
-
-
-            ticket.Client = await _userManager.GetUserAsync(User);
-            ticket.ClientId = ticket.Client.Id;
-
-            //ticket.ClientId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+   
             if (ModelState.IsValid)
             {
+                ticket.ClientId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+
                 _context.Add(ticket);
                 await _context.SaveChangesAsync();
 
+                var result = await _ticketService.SendMessageAsync(ticket.TicketId, body, User);
 
                 return RedirectToAction(nameof(Index));
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "CategoryId", "CategoryId", ticket.CategoryId);
             ViewData["DepartmentId"] = new SelectList(_context.Departments, "DepartmentId", "DepartmentId", ticket.DepartmentId);
             return View(ticket);
+            
         }
 
         public async Task<IActionResult> Take(int id)
@@ -118,19 +112,46 @@ namespace TicketsPanel.Controllers
             return RedirectToAction($"Detalhes", "Chamado", new { id = ticket.TicketId });
         }
 
-        public async Task<IActionResult> Finish(int id)
+        public async Task<IActionResult> SendMessage(int ticketId, string content)
         {
-            var ticket = _context.Tickets.FirstOrDefault(t => t.TicketId == id);
+            if (ModelState.IsValid)
+            {
+                bool result = await _ticketService.SendMessageAsync(ticketId, content, User);
 
-            ticket.Situation = Situation.Finished;
-            ticket.CloseTime = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                if (result)
+                {
+                    return RedirectToAction("Detalhes", "Chamado", new { id = ticketId });
+                }
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> Finish(int ticketId, String body)
+        {
+            if (ModelState.IsValid)
+            {
+                bool result = await _ticketService.FinishTicketAsync(ticketId, body, User);
+                if (result)
+                {
+                    return RedirectToAction("Index", "Chamado");
+                }
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> ReOpen(int TicketId)
+        {
+            var ticket = await _context.Tickets.FindAsync(TicketId);
+            ticket.Situation = Situation.WaitingForAttendent;
 
             _context.Update(ticket);
-
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Chamado");
+            return RedirectToAction("Detalhes", "Chamado", new { id = ticket.TicketId });
         }
+
 
         // GET: Tickets/Edit/5
         [Route("Chamado/Editar/{id}")]

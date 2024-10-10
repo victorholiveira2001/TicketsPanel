@@ -2,8 +2,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TicketsPanel.Models;
 using TicketsPanel.Data;
-using TicketsPanel.Services;
 using Microsoft.AspNetCore.DataProtection;
+using TicketsPanel.Services.Implementations;
+using TicketsPanel.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -56,6 +57,7 @@ builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddTransient<EmailSender>();
 builder.Services.AddTransient<EmailSettings>();
+builder.Services.AddTransient<ITicketService, TicketService>();
 
 var app = builder.Build();
 

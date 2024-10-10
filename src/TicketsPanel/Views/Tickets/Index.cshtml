@@ -77,7 +77,7 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.OrderByDescending(t => t.TicketId)) {
         <tr data-href="@Url.Action("Detalhes", "Chamado", new { id = item.TicketId })">
             <td>
                 @Html.DisplayFor(modelitem => item.TicketId)
