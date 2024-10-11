@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using TicketsPanel.Enums;
 
 namespace TicketsPanel.Models
@@ -22,8 +21,8 @@ namespace TicketsPanel.Models
         public bool ReceiveResponse { get; set; } = true;
         public bool SendReply { get; set; } = true;
         public string OpenTime { get; set; }
-        public string CloseTime { get; set; } = null;
-        public DateTime Sla { get; set; }
+        public string? CloseTime { get; set; } = null;
+        public DateTime? Sla { get; set; } = null;
 
         [Display(Name = "Departamento")]
         public Department Department { get; set; }
@@ -37,6 +36,5 @@ namespace TicketsPanel.Models
 
         [Display(Name = "Mensagem")]
         public ICollection<Message> Messages { get; set; } = new List<Message>();
-
     }
 }
