@@ -148,7 +148,7 @@ namespace TicketsPanel.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
                 user.Name = Input.Name;
-                user.UserName = Input.UserName;
+                user.UserName = Input.Email;
                 user.SSN = Input.SSN;
                 user.PhoneNumber = Input.PhoneNumber;
                 user.Position = Input.Position;
