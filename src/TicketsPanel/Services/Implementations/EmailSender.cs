@@ -8,7 +8,7 @@ namespace TicketsPanel.Services.Implementations
     {
         private readonly EmailSettings _settings = settings;
         private readonly IConfiguration _configuration = configuration;
-        public Task SendEmailAsync(string email, string subject, string htmlMessage)
+        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             string host = _configuration.GetValue<string>("Smtp:Server");
             int port = _configuration.GetValue<int>("Smtp:Port");
@@ -16,25 +16,25 @@ namespace TicketsPanel.Services.Implementations
             string userName = _configuration.GetValue<string>("Smtp:UserName");
             string password = _configuration.GetValue<string>("Smtp:Password");
 
-            var smtp = new SmtpClient(host, port)
+            using(var smtp = new SmtpClient(host, port))
             {
-                Credentials = new NetworkCredential(userName, password),
-                EnableSsl = true
-            };
+                smtp.Credentials = new NetworkCredential(userName, password);
+                smtp.EnableSsl = true;
+                smtp.Timeout = 1000;
+                
+                var mailMessage = new MailMessage()
+                {
+                    From = new MailAddress(fromAddress, "TicketsPanel"),
+                    Subject = subject,
+                    Body = htmlMessage,
+                    IsBodyHtml = true
+                };
 
-            var mailMessage = new MailMessage()
-            {
-                From = new MailAddress(fromAddress, "TicketsPanel"),
-                Subject = subject,
-                Body = htmlMessage,
-                IsBodyHtml = true
-            };
-
-            mailMessage.To.Add(email);
-            smtp.Send(mailMessage);
-
-            return Task.CompletedTask;
-
+                mailMessage.To.Add(email);
+                
+                await smtp.SendMailAsync(mailMessage);
+                
+            }
         }
     }
 }
