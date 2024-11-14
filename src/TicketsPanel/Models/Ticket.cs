@@ -25,16 +25,16 @@ namespace TicketsPanel.Models
         public DateTime? Sla { get; set; } = null;
 
         [Display(Name = "Departamento")]
-        public Department Department { get; set; }
-        public Category Category { get; set; }
+        public Department? Department { get; set; }
+        public Category? Category { get; set; }
         public Priority Priority { get; set; }
 
         [Display(Name = "Cliente")]
-        public ApplicationUser Client { get; set; }
+        public ApplicationUser? Client { get; set; }
 
-        public ApplicationUser Attendant { get; set; } = null;
+        public ApplicationUser? Attendant { get; set; } = null;
 
         [Display(Name = "Mensagem")]
-        public ICollection<Message> Messages { get; set; } = new List<Message>();
+        public ICollection<Message>? Messages { get; set; } = new List<Message>();
     }
 }

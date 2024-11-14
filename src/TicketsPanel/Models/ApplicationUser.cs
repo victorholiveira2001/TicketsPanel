@@ -19,9 +19,9 @@ namespace TicketsPanel.Models
         public string? UserInactiveAction { get; set; } = null;
 
 
-        public Department Department { get; set; }
+        public Department? Department { get; set; }
 
-        public ICollection<Ticket> TicketsClient { get; set; }
+        public ICollection<Ticket>? TicketsClient { get; set; }
         public ICollection<Ticket>? TicketsAttendant { get; set; }
         public ICollection<Message>? Messages { get; set; }
     }
