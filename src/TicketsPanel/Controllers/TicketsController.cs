@@ -76,9 +76,8 @@ namespace TicketsPanel.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Route("Chamado/Criar")]
-        public async Task<IActionResult> Create(Ticket ticket, string body)//[Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket)
+        public async Task<IActionResult> Create([Bind("TicketId,Title,DepartmentId,CategoryId,PriotiryId,Emails,Attachment,AttendantId,Situation,ReceiveResponse,SendReply,OpenTime,CloseTime,Sla,Priority")] Ticket ticket, string body)
         {
-   
             if (ModelState.IsValid)
             {
                 ticket.ClientId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));

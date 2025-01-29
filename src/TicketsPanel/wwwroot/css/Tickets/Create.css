@@ -1,0 +1,60 @@
+﻿.button-container{
+    justify-content: space-between;
+    margin-left: 20%;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.btn-primary{
+    width: 35%;
+}
+
+.row {
+    display: flex;
+    gap: 20px;
+    padding-left: 20%;
+    align-items: flex-start;
+}
+
+.form-wrapper{
+    flex: 3;
+    padding-right: 20%;
+}
+
+.form-control{
+    background-color: rgb(230, 230, 230) !important;
+    color: black !important;
+}
+
+.file-input-wrapper input[type="file"] {
+    display: none;
+}
+
+.file-input-wrapper .custom-file-input {
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+.file-input-wrapper .custom-file-input:hover{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+#file-list{
+    list-style-type: none;
+    padding: 0;
+    color: white;
+    margin-top: 10px;
+}
+
+$file-list li {
+    padding: 5px 0;
+    border-bottom: 1px solid #FFFF;
+    font-size: 14px;
+}
+
+#message-field {
+    height: 200px;
+}

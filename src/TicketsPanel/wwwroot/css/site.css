@@ -1,3 +1,14 @@
+body {
+    font-size: 100%;
+    margin-bottom: 60px;
+    background-color: #353535;
+    color: #ffff;
+}
+
+tr{
+    color: #FFFF;
+}
+
 html {
   font-size: 14px;
 }
@@ -15,8 +26,4 @@ html {
 html {
   position: relative;
   min-height: 100%;
-}
-
-body {
-  margin-bottom: 60px;
 }

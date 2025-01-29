@@ -74,3 +74,29 @@
     #btn-reopen:hover{
         background-color: mediumblue;
     }
+
+
+#Create a {
+    display: inline-block; /* Permite definir altura e largura */
+    padding: 10px 20px; /* Espaçamento interno (padding) para tornar o botão retangular */
+    background-color: #6495ED; /* Cor de fundo do botão */
+    color: white; /* Cor do texto */
+    text-align: center; /* Centraliza o texto no botão */
+    border-radius: 12px; /* Define bordas arredondadas */
+    text-decoration: none; /* Remove o sublinhado do link */
+    font-size: 16px; /* Tamanho do texto */
+    font-family: Arial, sans-serif; /* Define a fonte */
+}
+
+    #Create a:hover {
+        background-color: #4169E1; /* Cor de fundo ao passar o mouse */
+    }
+
+tr[data-href] {
+    cursor: pointer; /* Mostra um cursor de mão ao passar o mouse */
+}
+
+    tr[data-href]:hover {
+        background-color: #f0f0f0; /* Cor de fundo ao passar o mouse */
+    }
+

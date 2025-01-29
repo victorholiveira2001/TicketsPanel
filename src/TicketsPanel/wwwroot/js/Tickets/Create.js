@@ -24,3 +24,26 @@
         }
     });
 });
+
+{
+    const fileInput = document.getElementById('file');
+    const fileList = document.getElementById('file-list');
+    let uploadedFiles = []; // Array para armazenar os arquivos anexados
+
+    fileInput.addEventListener('change', function () {
+        const newFiles = Array.from(fileInput.files); // Captura os novos arquivos
+        uploadedFiles = [...uploadedFiles, ...newFiles]; // Acumula os arquivos antigos e novos
+
+        fileList.innerHTML = ''; // Limpa a lista na interface para atualizar
+
+        // Exibe todos os arquivos anexados
+        uploadedFiles.forEach((file, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${file.name}`;
+            fileList.appendChild(listItem);
+        });
+
+        fileInput.value = ''; // Limpa o input para permitir reanexar
+    });
+
+}

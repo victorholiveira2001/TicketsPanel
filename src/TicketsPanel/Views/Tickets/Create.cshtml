@@ -4,12 +4,16 @@
     ViewData["Title"] = "Create";
 }
 
+@section Head {
+    <link rel="stylesheet" href="~/css/Tickets/Create.css"/>
+}
+
 <h1>Create</h1>
 
 <h4>Ticket</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="form-wrapper">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -18,8 +22,8 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label"></label>
-                <textarea name="body" class="form-control"> </textarea>
+                <label class="control-label">Mensagem</label>
+                <textarea name="body" class="form-control" id="message-field"> </textarea>
                 <!-- <span asp-validation-for="Messages.Body" class="text-danger"></span> -->
             </div>
             <div class="form-group">
@@ -27,13 +31,10 @@
     
                 @if (ViewBag.Departments != null && ((IEnumerable<SelectListItem>)ViewBag.Departments).Any())
                 {
-                    <select id="Department" name="DepartmentId" class="form-control" asp-for="DepartmentId">
+                    <select id="Department" name="DepartmentId" asp-items="ViewBag.Departments" class="form-control">
                         <option value="">Selecionar Departamento.</option>
-                        @foreach (var department in ViewBag.Departments)
-                        {
-                            <option value="@department.Value">@department.Text</option>
-                        }
                     </select>
+
                 }
 
     
@@ -42,9 +43,10 @@
 
             <div class="form-group">
                 <label for="Category">Category</label>
-                <select id="Category" name="CategoryId" class="form-control">
+                <select id="Category" name="CategoryId" class="form-control" asp-for="CategoryId" asp-items="ViewBag.Categories">
                     <option value="">Select Category</option>
                 </select>
+
                 <span asp-validation-for="CategoryId" class="text-danger"></span>  <!-- Mensagem de validação -->
             </div>
             <div class="form-group">
@@ -52,20 +54,19 @@
                 <input asp-for="Emails" class="form-control" />
                 <span asp-validation-for="Emails" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Attachment" class="control-label"></label>
-                <input asp-for="Attachment" class="form-control" />
-                <span asp-validation-for="Attachment" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group button-container">
+                <input type="submit" value="Criar" class="btn btn-primary" />
+                <button class="btn btn-primary" asp-action="Index">Voltar à lista</button>
             </div>
         </form>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+    <div class="file-input-wrapper">
+        <label asp-for="Attachment" for="file" class="custom-file-input">Anexar arquivo(s)</label>
+        <input asp-for="Attachment" type="file" id="file" name="file" multiple>
+        <span asp-validation-for="Attachment" class="text-danger"></span>
+        <ul id="file-list"></ul>
+    </div>
 </div>
 
 @section Scripts {
